@@ -1,0 +1,29 @@
+# page.yaml: the words on your page, kept as data like everything else.
+# make_page.py puts each answer under its question. A few sentences each, in your own words;
+# leave a blank line between paragraphs. Refer to YOUR network and YOUR evidence.
+# Never put your name or full student ID here: the page is public.
+
+repository: https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+
+answers:
+  planes:
+    question: "Where are the data, control and management planes in your network?"
+    answer: "data planes is the switches bridge in mininet in fowarding data , control is the macAddress table of the switches while management plane is on the file build_topo.py and topology.yaml"
+  learning:
+    question: "How did your switches learn which port leads to each host? Use your MAC table evidence."
+    answer: "By using Arp , first h1 with macAddress(00:00:00:00:00:01) ping h2 with macAddress(00:00:00:00:00:02) but h1 does not have the mac address of h2 so it send a arp reqeust target h2 ip . Then switch will learn the macAddress of h1 and the port for ex port 1 with mac 00:00:00:00:00:01. Then switch will flood the arp request to all the other port except incoming port in the same vlan and when h2 reply , the switch will receive the arp reply and record down the port and macAddress for ex port 2 mac macAddress 00:00:00:00:00:02"
+  kind:
+    question: "Which of the four kinds of programmability is this assignment (a network described as data, then built and documented by scripts)? Why isn't it any of the other three?"
+    answer: "Automated configuration management , The network is described declaratively as data (topology.yaml or .json), and scripts do the work ."
+  two_am:
+    question: "Week 1's 2 a.m. change on 40 switches: what would be different if those switches were described like your network?"
+    answer: "More easier to manage it "
+  model:
+    question: "What's the difference between your network's data model and its serialisation? Use YAML and JSON as the example."
+    answer: "The data model is the structure and meaning of the information. The serialisation is the text format used to write that structure down."
+  check:
+    question: "Why is it better to catch bad data in check() than with pingall? What did IPv6 notice about a duplicate address that IPv4 didn't?"
+    answer: "Ipv4 will not show duplicate ip address error . Ipv6 will be using DAD in detecting duplicate ipv6 address ."
+  git:
+    question: "What does your Git history give you that copying files into folders named topology-v2-final wouldn't?"
+    answer: "Git record what change and why and u can restore it ."
