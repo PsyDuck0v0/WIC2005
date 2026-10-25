@@ -1,0 +1,19 @@
+# page3.yaml: the words on your Week 3 page. make_page3.py puts each answer under its question.
+# A few sentences each, in your own words, about YOUR network and YOUR evidence.
+# Leave a blank line between paragraphs. Never put your name or full student ID here.
+
+repository: https://github.com/YOUR-USERNAME/YOUR-REPOSITORY
+
+answers:
+  design:
+    question: "Describe your design: why these routers, LANs and links, and how you chose the addresses."
+    answer: "I used four routers in a ring (r1 to r4), each with one LAN and one host.Addresses. All addresses come from 10.63.0.0/16,"
+  summary:
+    question: "Which route summarises several LANs? Which networks does it cover, why is it correct, and what else would it attract if you added a network inside its range?"
+    answer: "10.63.32.0/22 , 10.63.32.0/24 to 10.63.35.0/24, while the r1-r2 link is up, the more specific /24 routes win. If the link fails, the /22 sends 33 and 35 via r3, which can reach both through r4.: any network added inside 10.63.32.0 to 10.63.35.255 without its own more specific route would be sent to r3. If it wasn’t behind r3, the traffic would be dropped or looped."
+  failure:
+    question: "When you took a link down, what happened, and why couldn't your routes recover even though another path existed? What would have recovered?"
+    answer: "Both ends of the link went down, and removed every route whose next hop was on it.All routes are static. Nothing tells a router that a neighbour or link has failed.Backup static routes on every router. Each gets a second route for the same destination, via the other path, with a higher metric"
+  control_plane:
+    question: "In your network, what was the control plane? Who worked out the routes, and what does that mean for a network of 40 routers?"
+    answer: "network.yaml , I ,Too much work"
