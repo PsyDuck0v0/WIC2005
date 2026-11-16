@@ -1,0 +1,69 @@
+PING 10.63.50.11 (10.63.50.11) 56(84) bytes of data.
+64 bytes from 10.63.50.11: icmp_seq=1 ttl=64 time=0.571 ms
+64 bytes from 10.63.50.11: icmp_seq=2 ttl=64 time=0.136 ms
+
+--- 10.63.50.11 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1013ms
+rtt min/avg/max/mdev = 0.136/0.353/0.571/0.217 ms
+PING 10.63.50.11 (10.63.50.11) 1472(1500) bytes of data.
+
+--- 10.63.50.11 ping statistics ---
+2 packets transmitted, 0 received, 100% packet loss, time 1010ms
+
+Connecting to host 10.63.50.11, port 5201
+[  5] local 10.63.50.10 port 37188 connected to 10.63.50.11 port 5201
+[ ID] Interval           Transfer     Bitrate         Retr  Cwnd
+[  5]   0.00-1.00   sec  0.00 Bytes  0.00 bits/sec    2   1.41 KBytes       
+[  5]   1.00-2.00   sec  0.00 Bytes  0.00 bits/sec    1   1.41 KBytes       
+[  5]   2.00-3.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes       
+[  5]   3.00-4.00   sec  0.00 Bytes  0.00 bits/sec    1   1.41 KBytes       
+[  5]   4.00-5.00   sec  0.00 Bytes  0.00 bits/sec    0   1.41 KBytes       
+- - - - - - - - - - - - - - - - - - - - - - - - -
+[ ID] Interval           Transfer     Bitrate         Retr
+[  5]   0.00-5.00   sec  0.00 Bytes  0.00 bits/sec    4             sender
+[  5]   0.00-5.00   sec  0.00 Bytes  0.00 bits/sec                  receiver
+
+iperf Done.
+
+== largest size and smallest ==
+
+== size 1421
+PING 10.63.50.11 (10.63.50.11) 1421(1449) bytes of data.
+1429 bytes from 10.63.50.11: icmp_seq=1 ttl=64 time=0.089 ms
+
+--- 10.63.50.11 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.089/0.089/0.089/0.000 ms
+
+== size 1422
+PING 10.63.50.11 (10.63.50.11) 1422(1450) bytes of data.
+1430 bytes from 10.63.50.11: icmp_seq=1 ttl=64 time=0.031 ms
+
+--- 10.63.50.11 ping statistics ---
+1 packets transmitted, 1 received, 0% packet loss, time 0ms
+rtt min/avg/max/mdev = 0.031/0.031/0.031/0.000 ms
+
+== size 1423
+PING 10.63.50.11 (10.63.50.11) 1423(1451) bytes of data.
+
+--- 10.63.50.11 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+== size 1424
+PING 10.63.50.11 (10.63.50.11) 1424(1452) bytes of data.
+
+--- 10.63.50.11 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+== size 1425
+PING 10.63.50.11 (10.63.50.11) 1425(1453) bytes of data.
+
+--- 10.63.50.11 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+
+== size 1426
+PING 10.63.50.11 (10.63.50.11) 1426(1454) bytes of data.
+
+--- 10.63.50.11 ping statistics ---
+1 packets transmitted, 0 received, 100% packet loss, time 0ms
+

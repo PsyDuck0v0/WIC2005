@@ -1,0 +1,67 @@
+answers:
+  design:
+    question: "Describe your design: hypervisors, tenants, VNIs and addresses. Which tenants overlap, and why did you place each VM where you did?"
+    answer: >-
+      Three hypervisors, hv1, hv2 and hv3, sit on the underlay 10.63.0.0/24 at
+      10.63.0.1, .2 and .3. Tenant red (VNI 100) and tenant blue (VNI 200) both use
+      10.63.50.0/24, so their addresses overlap: red1 and blue1 are both .10, and red2
+      and blue2 are both .11. Only the VNI keeps them apart. red has a VM on every
+      hypervisor (red1 on hv1, red2 on hv2, red3 on hv3), so a broadcast has to be
+      flooded to two other hypervisors and I could see flooding reach hv3 during a
+      hv1-to-hv2 ping. blue has VMs on hv1 and hv3. hv1 and hv3 each host both tenants,
+      to show that two tenants on the same hypervisor stay separate. hv2 hosts only red.
+
+  isolation:
+    question: "Two of your VMs have the same IP address. Using your evidence, explain how a ping reaches the right one — and what would have to go wrong for one tenant to see another's traffic."
+    answer: >-
+      Each hypervisor gives every tenant its own bridge and VXLAN device (br100/vxlan100
+      and br200/vxlan200), and a receiving VTEP picks the device by VNI. red1's ping to
+      10.63.50.11 stayed in VNI 100 and was answered by MAC 02:00:00:64:00:0b (0x64 is
+      100), which is red2. blue2 has the same IP but captured 0 packets. blue1's ping to
+      the same address was answered by 02:00:00:c8:00:0b (0xc8 is 200), which is blue2.
+      For traffic to leak, something would have to be wired wrongly: a VM port plugged
+      into the other tenant's bridge, a VXLAN device with the wrong VNI, or someone
+      sending crafted VXLAN packets with the other VNI onto the underlay, because VXLAN
+      has no authentication.
+
+  flood_learn:
+    question: "Using your evidence, explain what was flooded, to which hypervisors, and what each VTEP learned. With 50 hypervisors in one VNI, how many copies would one broadcast need — and how would EVPN change that?"
+    answer: >-
+      Before any traffic, hv1's VTEP table held only the two permanent flood entries
+      (00:00:00:00:00:00 to 10.63.0.2 and 10.63.0.3). red1's ARP request for 10.63.50.11
+      was a broadcast, so hv1 sent a copy to hv2 and a copy to hv3. hv3 captured it
+      (VNI 100, ARP who-has 10.63.50.11), even though the ping was between hv1 and hv2.
+      hv2 replied directly to hv1. Afterwards hv1 had learned red2's MAC
+      (02:00:00:64:00:0b via 10.63.0.2) and hv3 had learned red1's MAC
+      (02:00:00:64:00:0a via 10.63.0.1); later pings were sent only to hv2. With 50
+      hypervisors in one VNI, head-end replication needs 49 copies for each broadcast.
+      With EVPN, BGP distributes MAC and IP addresses in advance, so VTEPs already know
+      where each VM is, ARP can be answered locally, and most broadcasts are never
+      flooded.
+
+  mtu:
+    question: "Compare your two MTU fixes using your measurements. Which would you choose for a data centre, what does each cost, and who has to change what?"
+    answer: >-
+      Fix A (tenants 1450, underlay 1500): 1422 bytes worked and 1423 was refused
+      locally with "message too long, mtu=1450"; iperf3 reached [A Gbit/s]. Fix B
+      (tenants 1500, underlay 9000): 1472 worked and 1473 was refused locally; iperf3
+      reached [B Gbit/s]. Both turn the silent black hole into either a working link or
+      a visible error. Fix A costs 50 bytes of payload per packet, and every VM
+      interface must be set to 1450, so the tenants (or the VM templates) have to
+      change. Fix B keeps normal 1500-byte VMs, but every underlay link, switch port
+      and hypervisor NIC must support 9000, and one link left at 1500 brings the black
+      hole back, so the network operator has to change everything. I would choose B for
+      a data centre: the operator controls the underlay and changes it once, and
+      tenants need no changes.
+
+  p4:
+    question: "If your hypervisors' VTEPs were P4 switches running the lecture's vtep.p4, what would have to fill the vtep_encap table, and how? What would replace flood-and-learn?"
+    answer: >-
+      A controller would have to fill vtep_encap through P4Runtime, because a P4 table is
+      written by the control plane and not by the packet pipeline. It would install, for
+      each tenant, entries that match on the VNI and destination MAC and set the remote
+      VTEP's IP address, using the same data as overlay.yaml (which VM is on which
+      hypervisor). Controller-installed entries would replace flood-and-learn, as EVPN
+      does: the VTEPs know every VM location in advance, and broadcasts that still
+      happen would use a multicast group of the other VTEPs, configured by the
+      controller.
