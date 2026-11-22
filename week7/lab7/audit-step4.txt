@@ -1,0 +1,13 @@
+{
+  "writes": 1,
+  "items": [
+    {
+      "seq": 12,
+      "time": "14:58:06",
+      "method": "POST",
+      "path": "/api/v1/acl/entries",
+      "status": 201,
+      "change": "added ACL entry 10: deny 10.63.30.0/24 \u2192 10.63.20.0/24 tcp/22"
+    }
+  ]
+}

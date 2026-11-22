@@ -1,0 +1,52 @@
+== /api/v1/vlans/77 ==
+HTTP/1.1 404 Not Found
+Server: labapi/1.0 Python/3.12.16
+Date: Sun, 22 Nov 2026 13:23:13 GMT
+Content-Type: application/json
+Content-Length: 35
+
+{
+  "error": "VLAN 77 not found"
+}
+== /api/v1/vlans/10 ==
+HTTP/1.1 405 Method Not Allowed
+Server: labapi/1.0 Python/3.12.16
+Date: Sun, 22 Nov 2026 13:27:45 GMT
+Content-Type: application/json
+Content-Length: 54
+Allow: GET, PUT, PATCH, DELETE
+
+{
+  "error": "POST is not allowed on a single VLAN"
+}
+== /api/v1/vlans ==
+HTTP/1.1 400 Bad Request
+Server: labapi/1.0 Python/3.12.16
+Date: Sun, 22 Nov 2026 13:30:24 GMT
+Content-Type: application/json
+Content-Length: 52
+
+{
+  "error": "the request body is not valid JSON"
+}
+== puting vlan5000 ==
+HTTP/1.1 422 Unprocessable Entity
+Server: labapi/1.0 Python/3.12.16
+Date: Sun, 22 Nov 2026 13:35:00 GMT
+Content-Type: application/json
+Content-Length: 57
+
+{
+  "error": "id must be a VLAN number from 1 to 4094"
+}
+== Posting VLAN 10 to /api/v1/vlans ==
+HTTP/1.1 409 Conflict
+Server: labapi/1.0 Python/3.12.16
+Date: Sun, 22 Nov 2026 13:38:06 GMT
+Content-Type: application/json
+Content-Length: 63
+
+{
+  "error": "VLAN 10 already exists: use PUT to replace it"
+}
+== VLAN 30 with the viewer's token ==

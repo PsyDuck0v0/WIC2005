@@ -1,0 +1,23 @@
+logged in as netops
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+401: token expired, logging in again
+logged in as netops
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+401: token expired, logging in again
+logged in as netops
+429: waiting 1s
+429: waiting 1s
+429: waiting 1s
+263 devices read (the API says 263), in 42 requests; saved devices.json
+  johor: 65
+  kl-hq: 66
+  penang: 66
+  pj-dc: 66
