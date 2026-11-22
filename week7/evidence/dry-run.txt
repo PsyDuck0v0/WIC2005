@@ -1,0 +1,18 @@
+== dry run ==
+plan: 10 step(s)
+  delete VLAN 99 (old-guest)
+  create VLAN 30 (guests)
+  create VLAN 40 (voice)
+  create VLAN 50 (mgmt)
+  create VLAN 60 (iot)
+  create ACL entry: ('deny', '10.63.30.0/24', '10.63.20.0/24', 'tcp', 22, 'guests-no-ssh')
+  create ACL entry: ('permit', '10.63.10.0/24', '10.63.20.0/24', 'tcp', 443, 'users-to-servers-https')
+  create ACL entry: ('deny', '10.63.30.0/24', '10.63.10.0/24', 'any', None, 'guests-no-users')
+  create ACL entry: ('permit', '10.63.50.0/24', '10.63.20.0/24', 'tcp', 22, 'mgmt-ssh-to-servers')
+  create ACL entry: ('deny', '10.63.60.0/24', '10.63.20.0/24', 'any', None, 'iot-no-servers')
+dry run: no writes sent (3 read requests)
+== Dry run audits ==
+{
+  "writes": 0,
+  "items": []
+}

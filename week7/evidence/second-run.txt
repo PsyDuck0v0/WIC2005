@@ -1,0 +1,4 @@
+== second run ==
+already in sync: nothing to do
+0 write(s), 7 request(s) in total
+verified: the API matches intent.yaml
